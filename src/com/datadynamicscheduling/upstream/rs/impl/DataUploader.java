@@ -1,19 +1,28 @@
 package com.datadynamicscheduling.upstream.rs.impl;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 import com.datadynamicscheduling.common.util.DBUtil;
 import com.datadynamicscheduling.upstream.bean.Product;
+import com.datadynamicscheduling.upstream.rs.IDataUploader;
 
-public class DataUploader {
+public class DataUploader implements IDataUploader {
 
 	public DataUploader() {
 	}
 
-	public boolean blukUpload(List<Product> products) {
+	@Override
+	public boolean bulkUpload(String data) {
+		List<Product> products = convertJsonDataToPojo(data);
+
 		Connection con = DBUtil.getDBConnection();
 		PreparedStatement ps = null;
 		try {
@@ -49,6 +58,18 @@ public class DataUploader {
 			}
 		}
 		return true;
+	}
+
+	private List<Product> convertJsonDataToPojo(String data) {
+		List<Product> product = new ArrayList<>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			product = objectMapper.readValue(data, new TypeReference<List<Product>>() {
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return product;
 	}
 
 }
