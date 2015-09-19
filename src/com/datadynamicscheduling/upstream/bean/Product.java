@@ -61,4 +61,10 @@ public class Product implements Serializable {
 		this.payload = payload;
 	}
 
+	@Override
+	public String toString() {
+		return "Product [itemID=" + itemID + ", merchantID=" + merchantID + ", marketPlaceID=" + marketPlaceID
+				+ ", priority=" + priority + ", dataType=" + dataType + ", payload=" + payload + "]";
+	}
+
 }
