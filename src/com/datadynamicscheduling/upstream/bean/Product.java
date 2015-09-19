@@ -1,12 +1,17 @@
 package com.datadynamicscheduling.upstream.bean;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private int itemID;
 	private int merchantID;
 	private int marketPlaceID;
 	private String priority;
 	private String dataType;
-	private byte[] payload;
+	private String payload;
 
 	public int getItemID() {
 		return itemID;
@@ -48,11 +53,11 @@ public class Product {
 		this.dataType = dataType;
 	}
 
-	public byte[] getPayload() {
+	public String getPayload() {
 		return payload;
 	}
 
-	public void setPayload(byte[] payload) {
+	public void setPayload(String payload) {
 		this.payload = payload;
 	}
 

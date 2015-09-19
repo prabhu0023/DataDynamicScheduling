@@ -23,6 +23,11 @@ public class DataUploader {
 			int count = 0;
 			for (Product product : products) {
 				ps.setString(1, String.valueOf(product.getItemID()));
+				ps.setString(1, String.valueOf(product.getMerchantID()));
+				ps.setString(1, String.valueOf(product.getMarketPlaceID()));
+				ps.setString(1, product.getPriority());
+				ps.setString(1, product.getDataType());
+				ps.setString(1, product.getPayload());
 				ps.addBatch();
 				if (++count % batchSize == 0) {
 					ps.executeBatch();
