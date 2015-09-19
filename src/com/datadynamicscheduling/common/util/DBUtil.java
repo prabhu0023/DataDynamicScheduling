@@ -12,7 +12,7 @@ public class DBUtil {
 	private DBUtil() {
 	}
 
-	public Connection getDBConnection() {
+	public static Connection getDBConnection() {
 		Map<String, String> dbProperties = PropertyReader.getDBProperties();
 
 		String username = dbProperties.get(AppConstants.DB.USERNAME);
@@ -32,7 +32,7 @@ public class DBUtil {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		Connection con = new DBUtil().getDBConnection();
+		Connection con = DBUtil.getDBConnection();
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("select * from input_system");
 		while (rs.next()) {
